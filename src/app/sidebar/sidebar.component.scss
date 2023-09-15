@@ -1,0 +1,53 @@
+.sidebar {
+    width: 250px; // Fixed width for the sidebar
+    background-color: var(--primary-color); // Midnight Blue background
+    height: 100vh; // Full viewport height
+    overflow-y: auto; // Scroll if the content exceeds the viewport height
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); // A subtle shadow for depth
+
+    a {
+        text-decoration: none; // Remove default link styling
+        color: #ecf0f1; // Soft Gray for better contrast
+        font-family: "Avenir Next", sans-serif; // Primary font
+        font-size: 18px;
+        display: block;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border-radius: 8px;
+        transition: background-color 0.3s ease; // Transition for a smoother hover effect
+
+        &:hover {
+            background-color: var(--secondary-color); // Electric Violet for hover effect
+            color: #ecf0f1; // Retain the Soft Gray even on hover for consistent contrast
+        }
+    }
+
+    // Highlight for the active link
+    .active-link {
+        background-color: var(--secondary-color);
+        color: #ecf0f1; // Soft Gray for consistency in contrast
+        font-weight: bold;
+    }
+
+    // Profile section at the top of the sidebar
+    .profile-section {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        gap: 10px;
+
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; // Circular avatar
+            object-fit: cover;
+        }
+
+        .profile-name {
+            color: #ecf0f1; // Soft Gray for the profile name as well
+            font-weight: bold;
+            font-size: 20px;
+        }
+    }
+}

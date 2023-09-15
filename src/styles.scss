@@ -1,0 +1,30 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #9b59b6;
+    --accent-color-1: #27ae60;
+    --accent-color-2: #e67e22;
+    --background-color: #ecf0f1;
+    --text-color: #34495e;
+    --error-color: #e74c3c;
+    --info-color: #3498db;
+}
+
+body {
+    font-family: 'Avenir Next', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Raleway', sans-serif;
+}
+
+.meta-data,
+.secondary-info {
+    font-family: 'Roboto', sans-serif;
+}

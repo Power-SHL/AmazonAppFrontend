@@ -1,0 +1,12 @@
+<div class="feed-page">
+  <app-sidebar></app-sidebar>
+  <div class="posts-section">
+    <!-- Use a loop to render posts -->
+    <div class="post" *ngFor="let post of posts">
+      <div class="image-container">
+        <img [src]="post.imageUrl" alt="Post Image">
+      </div>
+      <div class="post-caption">{{ post.caption }}</div>
+    </div>
+  </div>
+</div>
