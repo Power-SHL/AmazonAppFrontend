@@ -10,6 +10,13 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditProfileModalComponent } from './edit-profile-modal/edit-profile-modal.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon'; 
+
 
 @NgModule({
   declarations: [
@@ -19,12 +26,18 @@ import { ProfileComponent } from './profile/profile.component';
     ProfileComponent,
     HomeComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    EditProfileModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

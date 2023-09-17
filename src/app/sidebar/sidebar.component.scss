@@ -21,6 +21,11 @@
             background-color: var(--secondary-color); // Electric Violet for hover effect
             color: #ecf0f1; // Retain the Soft Gray even on hover for consistent contrast
         }
+        &:active {
+            background-color: var(--secondary-color);
+            color: #ecf0f1; // Soft Gray for consistency in contrast
+            font-weight: bold;
+        }
     }
 
     // Highlight for the active link
@@ -29,7 +34,6 @@
         color: #ecf0f1; // Soft Gray for consistency in contrast
         font-weight: bold;
     }
-
     // Profile section at the top of the sidebar
     .profile-section {
         display: flex;

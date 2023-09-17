@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { EditProfileModalService } from '../edit-profile-modal.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -10,8 +12,11 @@ export class ProfileComponent {
   username: string = ''; // Initialize with default username
   bio: string = ''; // Initialize with default bio
 
-  constructor() {}
+  constructor(private editProfileModalService: EditProfileModalService) {}
 
+  editProfile(): void {
+    this.editProfileModalService.openEditProfileModal();
+  }
   ngOnInit() {
     // Fetch profile data from a service or API
     this.fetchProfileData();
@@ -25,10 +30,5 @@ export class ProfileComponent {
     this.bio = 'Your Bio';
   }
 
-  editProfile() {
-    // Implement logic to navigate to the profile editing page
-    // For example, you can use Angular's Router to navigate
-    // to a separate edit profile component.
-  }
 }
 
