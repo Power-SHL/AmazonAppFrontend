@@ -15,7 +15,8 @@ import { EditProfileModalComponent } from './edit-profile-modal/edit-profile-mod
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon'; 
+import { MatIconModule } from '@angular/material/icon';
+import { RequestComponent } from './request/request.component'; 
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
     HomeComponent,
     LoginComponent,
     SignupComponent,
-    EditProfileModalComponent
+    EditProfileModalComponent,
+    RequestComponent
   ],
   imports: [
     BrowserModule,

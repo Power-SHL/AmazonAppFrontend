@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-edit-profile-modal',
@@ -16,18 +17,17 @@ export class EditProfileModalComponent {
       this.selectedFileName = file.name;
     }
   }
-  onSave(): void {
-    // Implement logic to save profile changes
-    // Close the modal when done
+  onSave() {
+    this.profileUpdated.emit({ username: this.username, bio: this.bio, profileImageUrl: this.profileImageUrl });
     this.dialogRef.close();
   }
 
   onCancel(): void {
-    // Implement logic to discard changes if needed
-    // Close the modal
     this.dialogRef.close();
   }
   @Input() profileImageUrl: string = ''
   @Input() username: string = ''
   @Input() bio: string = ''
+
+  @Output() profileUpdated = new EventEmitter<{ username: string, bio: string, profileImageUrl: string }>();
 }

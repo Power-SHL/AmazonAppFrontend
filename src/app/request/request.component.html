@@ -1,0 +1,19 @@
+<div class="request-container">
+    <app-sidebar></app-sidebar>
+    <!-- Friend Requests Section -->
+    <div class="friend-requests">
+      <h2>Friend Requests</h2>
+      <div *ngFor="let request of friendRequests">
+        {{ request.fromUser }} has requested to follow you
+      </div>
+    </div>
+  
+    <!-- Activity Notifications Section -->
+    <div class="activity-notifications">
+      <h2>Activity Notifications</h2>
+      <div *ngFor="let notification of activityNotifications">
+        {{ notification.fromUser }} {{ notification.activity }}
+      </div>
+    </div>
+  </div>
+  

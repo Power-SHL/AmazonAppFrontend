@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { EditProfileModalService } from '../edit-profile-modal.service';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class ProfileComponent {
   username: string = ''; // Initialize with default username
   bio: string = ''; // Initialize with default bio
 
-  constructor(private editProfileModalService: EditProfileModalService) {}
+  constructor(private editProfileModalService: EditProfileModalService, private dialog: MatDialog) {}
 
   editProfile(): void {
     this.editProfileModalService.openEditProfileModal();
@@ -29,6 +30,12 @@ export class ProfileComponent {
     this.username = 'YourUsername';
     this.bio = 'Your Bio';
   }
+  updateProfile(updatedData: { username: string, bio: string, profileImageUrl: string }) {
+    this.username = updatedData.username;
+    this.bio = updatedData.bio;
+    this.profileImageUrl = updatedData.profileImageUrl;
+  }
+  
 
 }
 
