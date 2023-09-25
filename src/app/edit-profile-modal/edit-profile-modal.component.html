@@ -1,6 +1,6 @@
 <div class="modal-container">
     <h2>Edit Profile</h2>
-    <form (ngSubmit)="onSave()" class="form">
+    <form (ngSubmit)="onSave()" class="form" width="500px">
         <div class="profile-picture">
             <label for="profileImageInput" class="profile-image-label">
               <input
@@ -16,9 +16,7 @@
             <!-- Display the selected file name -->
             <span *ngIf="selectedFileName">{{ selectedFileName }}</span>
           </div>
-      <mat-form-field class="full-width">
-        <input matInput placeholder="Username" [(ngModel)]="username" name="username">
-      </mat-form-field>
+      <br>
       <mat-form-field>
         <textarea matInput placeholder="Bio" [(ngModel)]="bio" name="bio" rows="4"></textarea>
       </mat-form-field>
