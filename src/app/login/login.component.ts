@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'; // Import the Router module
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -7,14 +9,31 @@ import { Router } from '@angular/router'; // Import the Router module
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  loginForm: FormGroup;
 
-  // Inject the Router service in the constructor
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private loginService: LoginService
+  ) {
+    this.loginForm = this.fb.group({
+      usernameEmail: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
-  // Create the onLogin method to handle button press
   onLogin() {
-      // TODO: Add any login logic/validation here
-      // If login is successful, navigate to the feed page
-      this.router.navigate(['/feed']);
+    if (this.loginForm.valid) {
+      const { usernameEmail, password } = this.loginForm.value;
+      this.loginService.login(usernameEmail, password).subscribe(
+        response => {
+          console.log('Login successful', response);
+          this.router.navigate(['/feed']);
+        },
+        error => {
+          console.error('Login failed', error);
+        }
+      );
+    }
   }
 }

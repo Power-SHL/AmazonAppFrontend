@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestComponent } from './request/request.component';
+import { VerifyComponent } from './verify/verify.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path:'profile', component: ProfileComponent},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'requests', component: RequestComponent}
+  { path: 'requests', component: RequestComponent},
+  { path: 'verify', component: VerifyComponent },
 ];
 
 @NgModule({

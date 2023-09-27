@@ -1,27 +1,30 @@
 <div class="signup-form">
     <h2>Sign Up</h2>
-    <form>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div>
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" pattern="[a-z]*" required>
-            <div class="notice">Please enter only lowercase characters.</div>
+            <input formControlName="username" type="text" id="username" name="username">
+            <div class="notice"
+                *ngIf="(signupForm.get('username')?.invalid ?? false) && (signupForm.get('username')?.touched ?? false)">
+                Please enter only lowercase characters.
+            </div>
         </div>
         <div>
             <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="firstName" required>
+            <input formControlName="firstName" type="text" id="firstName" name="firstName">
         </div>
         <div>
             <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="lastName" required>
+            <input formControlName="lastName" type="text" id="lastName" name="lastName">
         </div>
         <div>
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+            <input formControlName="email" type="email" id="email" name="email">
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input formControlName="password" type="password" id="password" name="password">
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
     </form>
 </div>
