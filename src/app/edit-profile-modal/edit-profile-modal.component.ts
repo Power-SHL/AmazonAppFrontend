@@ -25,7 +25,7 @@ export class EditProfileModalComponent {
       const formData = new FormData();
       formData.append('image', this.profileImage);
   
-      this.httpClient.post<any>('https://streamitbackend.azurewebsites.net/api/UploadImage', formData).subscribe(
+      this.httpClient.post<any>('https://streamitbackend.azurewebsites.net/api/images/hussam_2002', formData).subscribe(
         (response: { imageUrl: any; }) => {
           // Handle the response, which may include the image URL
           const imageUrl = response.imageUrl;

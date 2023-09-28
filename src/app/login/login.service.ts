@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  private baseUrl = 'https://amazonappbackend.azurewebsites.net/api/profile';
-
+  private baseUrl = 'https://streamitbackend.azurewebsites.net/api/profile';
+  
   constructor(private http: HttpClient) { }
 
   login(usernameEmail: string, password: string): Observable<any> {
