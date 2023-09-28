@@ -17,15 +17,15 @@ export class LoginComponent {
     private loginService: LoginService
   ) {
     this.loginForm = this.fb.group({
-      usernameEmail: ['', Validators.required],
+      logInString: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
   onLogin() {
     if (this.loginForm.valid) {
-      const { usernameEmail, password } = this.loginForm.value;
-      this.loginService.login(usernameEmail, password).subscribe(
+      const { logInString, password } = this.loginForm.value;
+      this.loginService.login(logInString, password).subscribe(
         response => {
           console.log('Login successful', response);
           this.router.navigate(['/feed']);

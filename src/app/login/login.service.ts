@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  private baseUrl = 'https://streamitbackend.azurewebsites.net/api/profile';
+  private baseUrl = 'https://streamitbackend.azurewebsites.net/api/profile/login';
   
   constructor(private http: HttpClient) { }
 
-  login(usernameEmail: string, password: string): Observable<any> {
-    const url = `${this.baseUrl}/login`;
-    return this.http.post(url, { usernameEmail, password });
+  login(logInString: string, password: string): Observable<any> {
+    //const url = `${this.baseUrl}/${usernameEmail}/login`;
+    return this.http.post(this.baseUrl, { logInString, password });
   }
 }

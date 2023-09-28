@@ -2,8 +2,8 @@
     <h2>Login</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()"> <!-- Add [formGroup]="loginForm" here -->
         <div>
-            <label for="usernameEmail">Username or Email</label>
-            <input type="text" id="usernameEmail" formControlName="usernameEmail" required>
+            <label for="logInString">Username or Email</label>
+            <input type="text" id="logInString" formControlName="logInString" required>
         </div>
         <div>
             <label for="password">Password</label>
