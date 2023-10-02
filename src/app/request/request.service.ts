@@ -21,13 +21,26 @@ export class RequestService {
       return this.http.get(`${this.baseUrl}/${username}/received`, requestOptions);
     }
     sendFriendRequests(sender: string, receiver: string, authToken: string | null): Observable<any> {
-        const request = { Sender: sender, Receiver: receiver };
+        const request = { sender: sender, receiver: receiver };
         const url = 'https://streamitbackend.azurewebsites.net/api/friends/send'
         // Set the content type to JSON and include the Authorization header with the token
         const headers = new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${authToken}`
         });
-        return this.http.post(url, request, { headers });
+        const requestOptions = { headers: headers };
+
+        return this.http.post(url, request, requestOptions);
     }
+    acceptFriendRequest(sender: string, receiver: string | null, authToken: string | null): Observable<any> {
+        const request = { Sender: sender, Receiver: receiver };
+        const url = 'https://streamitbackend.azurewebsites.net/api/friends/accept'
+    
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${authToken}`
+        });
+    
+        return this.http.post(url, request, { headers });
+      }
 }

@@ -41,15 +41,22 @@ export class RequestComponent {
   errorMessage: string = '';
 
   sendFriendRequest() {
+    this.usernameService.username$.subscribe((sender) => {
     const token = localStorage.getItem('authtoken'); 
     console.log(token);
-    this.requestService.sendFriendRequests(this.sender, this.receiver, token).subscribe(
-      (response: any) => {
-        this.successMessage = response.message;
-      },
-      (error: any) => {
-        this.errorMessage = error.error; 
-      }
-    );
-  }
+    this.requestService.sendFriendRequests(sender, this.receiver, token)
+  });
+}
+acceptFriendRequest(request: any) {
+  // Assuming you have the sender's and receiver's usernames
+  const sender = request.sender;
+  const receiver =  localStorage.getItem('username')
+  const token = localStorage.getItem('authtoken');
+
+  this.requestService.acceptFriendRequest(sender, receiver, token)
+}
+
+rejectFriendRequest(request: any) {
+  this.friendRequests = this.friendRequests.filter(req => req !== request);
+}
 }

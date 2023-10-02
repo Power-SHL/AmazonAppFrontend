@@ -3,17 +3,20 @@
     <div class="friend-requests">
       <h2>Friend Requests</h2>
       <div *ngFor="let request of friendRequests">
-        {{ request.fromUser }} has requested to follow you
+        {{ request.sender }} has requested to follow you
+        <button (click)="acceptFriendRequest(request)">Accept</button>
+        <button (click)="rejectFriendRequest(request)">Reject</button>
       </div>
+      <ng-template #noRequests>
+        <div *ngIf="friendRequestsNotFound">
+          No friend requests found for this user.
+        </div>
+      </ng-template>
     </div>
    <div class="activity-notifications">
     <div class="friend-request-form">
       <h2>Add Friend</h2>
       <form  #friendRequestForm="ngForm">
-        <div class="form-group">
-          <label for="sender">Your Username:</label>
-          <input type="text" id="sender" name="sender"  required>
-        </div>
         <div class="form-group">
           <label for="receiver">Friend's Username:</label>
           <input type="text" id="receiver" name="receiver" required>
