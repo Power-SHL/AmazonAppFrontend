@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { UsernameService } from '../services/username.service';
 import { ProfileComponent } from '../profile/profile.component';
 import { ProfileService } from '../profile/profile.service';
+import { HttpHeaders } from '@angular/common/http';
+
 @Component({
   selector: 'app-edit-profile-modal',
   templateUrl: './edit-profile-modal.component.html',
@@ -57,14 +59,24 @@ export class EditProfileModalComponent {
     }
   }
   
+
+  
   onSave() {
+    const token = localStorage.getItem('authtoken'); 
+    console.log(token)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // Include the token in the Authorization header.
+      })
+    };
     this.uploadProfileImage();
     const updatedProfile = {
       firstName: this.firstname,
       lastName: this.lastname
     };
     
-    this.profileService.updateProfileBio(this.username, updatedProfile).subscribe(
+    this.profileService.updateProfileBio(this.username, updatedProfile,  httpOptions).subscribe(
       () => {
         // Handle success, if needed
         this.profileUpdated.emit({
@@ -82,6 +94,7 @@ export class EditProfileModalComponent {
         // Handle errors, if needed
       }
     );
+    this.dialogRef.close
   }
   
   onCancel(): void {

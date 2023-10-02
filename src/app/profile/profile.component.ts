@@ -5,6 +5,8 @@ import { ProfileService } from './profile.service';
 import { EditProfileModalComponent } from '../edit-profile-modal/edit-profile-modal.component';
 import { UsernameService } from '../services/username.service';
 import { Profile } from './profile.model';
+import { HttpHeaders } from '@angular/common/http';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -67,9 +69,15 @@ export class ProfileComponent implements OnInit{
       firstName: this.firstname,
       lastName: this.lastname
     };
-
+    const token = localStorage.getItem('authtoken'); 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // Include the token in the Authorization header.
+      })
+    };
     if (this.username) {
-      this.profileService.updateProfileBio(this.username, updatedProfile).subscribe(
+      this.profileService.updateProfileBio(this.username, updatedProfile, httpOptions).subscribe(
         (response) => {
           console.log('Profile updated successfully', response);
           // Handle success, if needed

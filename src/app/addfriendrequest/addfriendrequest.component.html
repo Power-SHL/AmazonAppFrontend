@@ -1,0 +1,21 @@
+<div class="add-friend">
+    <h2>Add Friend</h2>
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <form (submit)="sendFriendRequest()">
+      <div class="form-group">
+        <label for="sender">Your Username:</label>
+        <input type="text" id="sender" [(ngModel)]="sender" name="sender" required>
+      </div>
+      <div class="form-group">
+        <label for="receiver">Friend's Username:</label>
+        <input type="text" id="receiver" [(ngModel)]="receiver" name="receiver" required>
+      </div>
+      <button type="submit">Send Friend Request</button>
+    </form>
+  </div>
+  

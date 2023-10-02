@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, ViewChild } from '@angular/core';
+import { AddfriendrequestComponent } from './addfriendrequest/addfriendrequest.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'StreamIt';
+
+  @ViewChild(AddfriendrequestComponent) addFriendComponent!: AddfriendrequestComponent;
+
+  onAddFriendClicked() {
+    this.addFriendComponent.sendFriendRequest();
+  }
 }

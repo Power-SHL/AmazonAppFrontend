@@ -1,19 +1,24 @@
 <div class="request-container">
     <app-sidebar></app-sidebar>
-    <!-- Friend Requests Section -->
     <div class="friend-requests">
       <h2>Friend Requests</h2>
       <div *ngFor="let request of friendRequests">
         {{ request.fromUser }} has requested to follow you
       </div>
     </div>
-  
-    <!-- Activity Notifications Section -->
-    <div class="activity-notifications">
-      <h2>Activity Notifications</h2>
-      <div *ngFor="let notification of activityNotifications">
-        {{ notification.fromUser }} {{ notification.activity }}
-      </div>
+   <div class="activity-notifications">
+    <div class="friend-request-form">
+      <h2>Add Friend</h2>
+      <form  #friendRequestForm="ngForm">
+        <div class="form-group">
+          <label for="sender">Your Username:</label>
+          <input type="text" id="sender" name="sender"  required>
+        </div>
+        <div class="form-group">
+          <label for="receiver">Friend's Username:</label>
+          <input type="text" id="receiver" name="receiver" required>
+        </div>
+        <button type="submit" (click)="sendFriendRequest()">Add Friend</button>
+      </form>
     </div>
-  </div>
-  
+  </div> 

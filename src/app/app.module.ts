@@ -20,6 +20,7 @@ import { RequestComponent } from './request/request.component';
 import { HttpClientModule } from '@angular/common/http';
 import { VerifyComponent } from './verify/verify.component';
 import { UsernameService } from './services/username.service';
+import { AddfriendrequestComponent } from './addfriendrequest/addfriendrequest.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { UsernameService } from './services/username.service';
     SignupComponent,
     EditProfileModalComponent,
     RequestComponent,
-    VerifyComponent
+    VerifyComponent,
+    AddfriendrequestComponent
   ],
   imports: [
     BrowserModule,
