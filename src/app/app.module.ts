@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RequestComponent } from './request/request.component'; 
 import { HttpClientModule } from '@angular/common/http';
 import { VerifyComponent } from './verify/verify.component';
-
+import { UsernameService } from './services/username.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +45,7 @@ import { VerifyComponent } from './verify/verify.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [UsernameService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

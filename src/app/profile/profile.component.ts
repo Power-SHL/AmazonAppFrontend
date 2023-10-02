@@ -3,7 +3,8 @@ import { EditProfileModalService } from '../edit-profile-modal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileService } from './profile.service';
 import { EditProfileModalComponent } from '../edit-profile-modal/edit-profile-modal.component';
-
+import { UsernameService } from '../services/username.service';
+import { Profile } from './profile.model';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -11,10 +12,10 @@ import { EditProfileModalComponent } from '../edit-profile-modal/edit-profile-mo
 })
 export class ProfileComponent implements OnInit{
   profileImageUrl: string = ''; // Initialize with default image URL
-  username: string = ''; // Initialize with default username
-  bio: string = ''; // Initialize with default bio
-
-  constructor(private dialog: MatDialog, private editProfileModalService: EditProfileModalService) {}
+  firstname: string = ''; 
+  lastname: string = '';
+  username: string | undefined;
+  constructor(private dialog: MatDialog, private editProfileModalService: EditProfileModalService, private usernameService: UsernameService, private profileService: ProfileService) {}
   
 
   
@@ -22,16 +23,17 @@ export class ProfileComponent implements OnInit{
     const dialogRef = this.dialog.open(EditProfileModalComponent, {
       data: {
         username: this.username,
-        bio: this.bio,
-        // ... other data you want to pass to the dialog
+        firstname: this.firstname,
+        lastname: this.lastname,
+        image: this.profileImageUrl
       },
     });
 
     // Subscribe to the dialog's afterClosed event to get the updated data
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // Update the bio with the data from the dialog
-        this.bio = result.bio;
+        this.firstname = result.firstname;
+        this.lastname = result.lastname;
         this.profileImageUrl = result.profileImageUrl; 
       }
     });
@@ -40,19 +42,47 @@ export class ProfileComponent implements OnInit{
   ngOnInit() {
     // Fetch profile data from a service or API
     this.fetchProfileData();
+    this.usernameService.username$.subscribe((username) => {
+      console.log('Received username:', username);
+      this.username = username;
+      this.profileService.getProfile(username).subscribe((data: Profile) => {
+        this.firstname = data.firstName;
+        this.lastname = data.lastName;
+      });      
+    });
+   
   }
 
   fetchProfileData() {
-    this.profileImageUrl = '../assets/user1.jpeg';
     this.username = 'YourUsername';
-    this.bio = 'Your Bio';
   }
-  updateProfile(updatedData: { username: string, bio: string, profileImageUrl: string }) {
-    this.username = updatedData.username;
-    this.bio = updatedData.bio;
+  updateProfile(updatedData: {firstname: string, lastname:string, profileImageUrl: string }) {
+    this.firstname = updatedData.firstname;
+    this.lastname = updatedData.lastname;
     this.profileImageUrl = updatedData.profileImageUrl;
   }
-  
 
+  updateProfileData() {
+    const updatedProfile = {
+      firstName: this.firstname,
+      lastName: this.lastname
+    };
+
+    if (this.username) {
+      this.profileService.updateProfileBio(this.username, updatedProfile).subscribe(
+        (response) => {
+          console.log('Profile updated successfully', response);
+          // Handle success, if needed
+        },
+        (error) => {
+          console.error('Profile update failed', error);
+          // Handle errors, if needed
+        }
+      );
+    }
+  }
+
+  // ...
 }
+  
 
