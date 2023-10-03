@@ -4,8 +4,8 @@
       <h2>Friend Requests</h2>
       <div *ngFor="let request of friendRequests">
         {{ request.sender }} has requested to follow you
-        <button (click)="acceptFriendRequest(request)">Accept</button>
-        <button (click)="rejectFriendRequest(request)">Reject</button>
+        <button (click)="acceptFriendRequest(request)" class="button">Accept</button>
+        <button (click)="rejectFriendRequest(request)" class="button">Reject</button>
       </div>
       <ng-template #noRequests>
         <div *ngIf="friendRequestsNotFound">

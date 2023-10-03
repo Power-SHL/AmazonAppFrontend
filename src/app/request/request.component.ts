@@ -64,6 +64,7 @@ export class RequestComponent {
         // Handle errors
         console.error('Error sending friend request:', error);
         // You can show an error message or perform other actions here
+        this.receiver = '';
       }
     );
   });
