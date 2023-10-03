@@ -1,22 +1,85 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { FeedService } from './feed.service';
+import { Post } from './post.interface';
+import { UsernameService } from '../services/username.service';
 
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss']
 })
-export class FeedComponent {
-  posts = [
-    { 
-      imageUrl: 'https://imgs.search.brave.com/WztMOYMZM-EMbFyHhdcts04I2eSRVobVN1NeaqVgd5I/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9sb2dv/ZG93bmxvYWQub3Jn/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDE2/LzA5L1Nwb3RpZnkt/bG9nby5wbmc', 
-      description: 'This is a test post 1.', 
-      caption: 'Listen to this amazing song!' 
-    },
-    { 
-      imageUrl: 'https://imgs.search.brave.com/EjRo_2RN14IcsfUCg3-UdxTCGDWpXMFJ5WHf4lfYP5U/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jZG4u/c3RhdGljYWxseS5p/by9pbWcvcG5nZnJl/LmNvbS93cC1jb250/ZW50L3VwbG9hZHMv/dHdpdGNoLWxvZ28t/cG5nLWZyb20tcG5n/ZnJlLTE3LTEwMjR4/NjE5LnBuZz9xdWFs/aXR5PTEwMCZmPWF1/dG8', 
-      description: 'This is a test post 2.',
-      caption: 'Watch my Live Stream!' 
-    },
-    //... add as many dummy posts as you want for testing
-  ];
+export class FeedComponent implements OnInit, OnDestroy {
+  posts: Post[] = [];
+  private unsubscribe$ = new Subject<void>();
+
+  constructor(
+    private feedService: FeedService, 
+    private usernameService: UsernameService
+  ) { }
+
+  ngOnInit(): void {
+    this.usernameService.username$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(username => {
+        if (username) {
+          const token = localStorage.getItem('authtoken');
+          this.loadPosts(username, token);
+        }
+      });
+  }
+
+  loadPosts(username: string, token: string | null): void {
+    const pageNumber = 1;
+    const pageSize = 12;
+
+    this.feedService.getPostsOfFriends(username, pageNumber, pageSize, token).subscribe(
+      data => {
+        this.posts = data.posts; // Adjust as needed based on the API response structure
+      },
+      error => {
+        console.error('Error loading posts', error);
+      }
+    );
+  }
+
+  addPost(): void {
+    const postRequest = {
+      Username: localStorage.getItem('username'),
+      ContentId: 'exampleContentId' 
+    };
+    const token = localStorage.getItem('authtoken');
+
+    this.feedService.addPost(postRequest, token).subscribe(
+      post => {
+        this.posts.push(post); 
+      },
+      error => {
+        console.error('Error adding post', error);
+      }
+    );
+  }
+
+  deletePost(username: string, platform: string): void {
+    const deletePostRequest = {
+      Username: username,
+      Platform: platform
+    };
+    const token = localStorage.getItem('authtoken');
+
+    this.feedService.deletePost(deletePostRequest, token).subscribe(
+      () => {
+        this.posts = this.posts.filter(post => post.username !== username && post.platform !== platform);
+      },
+      error => {
+        console.error('Error deleting post', error);
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 }

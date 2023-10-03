@@ -12,6 +12,13 @@
           No friend requests found for this user.
         </div>
       </ng-template>
+       <!-- Display Friends -->
+  <div class="friends">
+    <h2>Friends</h2>
+    <div *ngFor="let friend of friends">
+      {{ friend.username }} <!-- Replace 'username' with the actual property name for username -->
+    </div>
+  </div>
     </div>
    <div class="activity-notifications">
     <div class="friend-request-form">
@@ -19,7 +26,7 @@
       <form  #friendRequestForm="ngForm">
         <div class="form-group">
           <label for="receiver">Friend's Username:</label>
-          <input type="text" id="receiver" name="receiver" required>
+          <input type="text" id="receiver" name="receiver" [(ngModel)]="receiver" required>
         </div>
         <button type="submit" (click)="sendFriendRequest()">Add Friend</button>
       </form>

@@ -14,6 +14,7 @@ export class RequestComponent {
   friendRequests: any[] = [];
   constructor(private requestService: RequestService, private usernameService:UsernameService ) { }
   friendRequestsNotFound: boolean = false;
+  friends: any[] = []; // Initialize as empty array
 
   ngOnInit() {
     this.usernameService.username$.subscribe((username) => {
@@ -33,6 +34,14 @@ export class RequestComponent {
       ).subscribe((data: any) => {
       this.friendRequests = data;
     });
+    this.requestService.getFriends(username, token).subscribe(
+      (data: any) => {
+        this.friends = data;
+      },
+      (error: any) => {
+        console.error('An error occurred while fetching friends:', error);
+      }
+    );
   });
 }
   sender: string = '';
@@ -44,7 +53,19 @@ export class RequestComponent {
     this.usernameService.username$.subscribe((sender) => {
     const token = localStorage.getItem('authtoken'); 
     console.log(token);
-    this.requestService.sendFriendRequests(sender, this.receiver, token)
+    this.requestService.sendFriendRequests(sender, this.receiver, token).subscribe(
+      (response: any) => {
+        this.receiver = '';
+        // Handle success
+        console.log('Request sent successfully:', response);
+        // You can also update your friendRequests array here
+      },
+      (error: any) => {
+        // Handle errors
+        console.error('Error sending friend request:', error);
+        // You can show an error message or perform other actions here
+      }
+    );
   });
 }
 acceptFriendRequest(request: any) {
@@ -53,7 +74,11 @@ acceptFriendRequest(request: any) {
   const receiver =  localStorage.getItem('username')
   const token = localStorage.getItem('authtoken');
 
-  this.requestService.acceptFriendRequest(sender, receiver, token)
+  this.requestService.acceptFriendRequest(sender, receiver, token).subscribe((response: any) => {
+      this.successMessage = response.message;
+      this.friendRequests = this.friendRequests.filter(req => req !== request);
+    }, );
+    window.location.reload();
 }
 
 rejectFriendRequest(request: any) {

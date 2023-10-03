@@ -41,6 +41,19 @@ export class RequestService {
           'Authorization': `Bearer ${authToken}`
         });
     
-        return this.http.post(url, request, { headers });
+        return this.http.post(url, request, { headers: headers });
       }
+      getFriends(username: string, authToken: string | null): Observable<any[]> {
+        const url = `https://streamitbackend.azurewebsites.net/api/friends/${username}`;
+      
+        // Set the Authorization header with the token
+        const headers = new HttpHeaders({
+          'Authorization': `Bearer ${authToken}`
+        });
+      
+        const requestOptions = { headers: headers };
+      
+        return this.http.get<any[]>(url, requestOptions);
+      }
+      
 }
