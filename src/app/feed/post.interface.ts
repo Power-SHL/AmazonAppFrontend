@@ -3,6 +3,6 @@ export interface Post {
     caption: string;
     username: string;
     platform: string;
-    // Add other properties as needed
+    contentId: string;
   }
   

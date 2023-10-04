@@ -1,17 +1,80 @@
+<script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async></script>
 <div class="feed-page">
   <app-sidebar></app-sidebar>
   <div class="posts-section">
     <!-- Form to Add Post -->
     <div class="add-post-form">
+
+      <input type="text" [(ngModel)]="spotifyLink" placeholder="Enter Spotify link">
       <button (click)="addPost()">Add Post</button>
+
     </div>
     <!-- Loop to Render Posts -->
     <div class="post" *ngFor="let post of posts">
-      <div class="image-container">
-        <img [src]="post.imageUrl" alt="Post Image">
-      </div>
+      <div id="embed-iframe-{{ post.contentId }}"></div>
+      <button class="track" (click)="loadSpotifyTrack(post)">Load Spotify Track</button>
       <div class="post-caption">{{ post.caption }}</div>
-      <button (click)="deletePost(post.username, post.platform)">Delete</button>
-    </div>
-  </div>
+    </div>    
 </div>
+<html>
+
+<head>
+  <style>
+    body {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .tracks {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .track {
+      min-width: max-content;
+      margin-bottom: .8rem;
+      padding: .8rem 1rem;
+      border-radius: 10px;
+      border: 0;
+      background: #191414;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .track:hover {
+      background: #1Db954;
+    }
+
+  </style>
+</head>
+
+<body>
+  
+
+  <div id="embed-iframe"></div>
+  <script src="https://open.spotify.com/embed-podcast/iframe-api/v1" async>
+  </script>
+  <script type="text/javascript">
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+      const element = document.getElementById('embed-iframe');
+      const options = {
+        width: '50%',
+        height: '300',
+        uri: 'spotify:track:762K1h8yVV5IgAVuEMpqfZ'
+      };
+      const callback = (EmbedController) => {
+        document.querySelectorAll('.track').forEach(
+          track => {
+            track.addEventListener('click', () => {
+              EmbedController.loadUri(track.dataset.spotifyId)
+            });
+          })
+      };
+      IFrameAPI.createController(element, options, callback);
+    };
+  </script>
+</body>
+</html>
+
+
+
