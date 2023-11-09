@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VerifyService } from './verify.service'; // Adjust the path as needed
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-verify',
   templateUrl: './verify.component.html',
@@ -10,7 +10,7 @@ import { VerifyService } from './verify.service'; // Adjust the path as needed
 export class VerifyComponent {
   verifyForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private verifyService: VerifyService) {
+  constructor(private fb: FormBuilder, private verifyService: VerifyService,  private router: Router) {
     this.verifyForm = this.fb.group({
       username: ['', Validators.required],
       verificationCode: ['', Validators.required]
@@ -24,6 +24,7 @@ export class VerifyComponent {
         response => {
           console.log('Profile verified', response);
           // Handle success, navigate to another page or show a success message
+          this.router.navigate(['/login']);
         },
         error => {
           console.error('Error verifying profile', error);
