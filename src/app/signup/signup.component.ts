@@ -31,7 +31,7 @@ export class SignupComponent {
             response => {
                 console.log('Profile created', response);
                 // Navigate to verification page after successful signup
-                this.router.navigate(['/verify']); // Adjust the path as needed
+                this.router.navigate(['/login']); // Adjust the path as needed
             },
             error => {
                 console.error('Error creating profile', error);

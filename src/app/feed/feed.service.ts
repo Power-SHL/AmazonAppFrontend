@@ -11,6 +11,7 @@ export class FeedService {
   constructor(private http: HttpClient) { }
 
   getPostsOfFriends(username: string, pageNumber: number, pageSize: number, authToken: string | null): Observable<any> {
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${authToken}`
     });
