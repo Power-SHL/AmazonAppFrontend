@@ -1,5 +1,5 @@
 # StreamIt
-
+Deployed website: https://main.d3mdaytf4vy6mz.amplifyapp.com/
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.5.
 
 ## Development server
